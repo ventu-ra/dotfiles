@@ -450,3 +450,10 @@ default_border pixel 2
 
 titlebar_padding 8 2
 titlebar_border_thickness 2
+
+input "type:keyboard" {
+    xkb_layout "br"
+    xkb_options "caps:escape"
+}
+output * scale_filter linear
+
