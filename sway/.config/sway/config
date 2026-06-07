@@ -30,7 +30,7 @@ set $file-manager nemo
 # And same goes for any browser, just replace the command with whatever command is used to launch your browser.
 # Brave browser users need to set command as brave-bin
 # Your preferred Browser
-set $web-browser floorp
+set $web-browser flatpak run com.brave.Browser
 
 # lock screen
 set $lock 'swaylock \
