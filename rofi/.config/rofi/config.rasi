@@ -73,4 +73,4 @@ configuration {
 
 //@theme "/home/arkboi/.config/rofi/themes/sway-alt.rasi"
 
-@theme "/home/a/.config/rofi/themes/sway-alt.rasi"
+@theme "~/.config/rofi/themes/sway-alt.rasi"

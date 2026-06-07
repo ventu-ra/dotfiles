@@ -14,7 +14,7 @@
     "modules-right": [
         "clock",
         "pulseaudio",
-        // "backlight",
+        "backlight",
         "bluetooth",
         "network",
         "cpu",
