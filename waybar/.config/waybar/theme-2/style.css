@@ -102,6 +102,7 @@ button:hover {
 #backlight,
 #network,
 #pulseaudio,
+#bluetooth,
 #wireplumber,
 #custom-media,
 #tray,
@@ -201,6 +202,16 @@ button:hover {
 
 #pulseaudio.muted {
     background-color: @cyan;
+    color: @bg;
+}
+
+#bluetooth {
+    background-color: @cyan;
+    color: @bg;
+}
+
+#bluetooth.disabled {
+    background-color: @red;
     color: @bg;
 }
 

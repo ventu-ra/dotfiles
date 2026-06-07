@@ -89,6 +89,7 @@
 @define-color pulseaudio-color @orange;
 @define-color pulseaudio-muted-color @red;
 @define-color backlight-color @yellow;
+@define-color bluetooth-color @cyan;
 @define-color disk-color @cyan;
 @define-color uptime-color @green;
 @define-color updates-color @orange;
@@ -113,10 +114,25 @@ window#waybar {
 
 
 /* Common module styling with border-bottom */
-#mode, #mpd, #custom-weather, #custom-playerctl, #clock, #cpu,
-#memory, #temperature, #battery, #network, #pulseaudio,
-#backlight, #disk, #custom-uptime, #custom-updates, #custom-quote,
-#idle_inhibitor, #tray {
+#mode,
+#mpd,
+#custom-weather,
+#custom-playerctl,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#battery,
+#network,
+#pulseaudio,
+#backlight,
+#bluetooth,
+#disk,
+#custom-uptime,
+#custom-updates,
+#custom-quote,
+#idle_inhibitor,
+#tray {
     padding: 0 10px;
     margin: 0 2px;
     border-bottom: 2px solid transparent;
@@ -214,7 +230,8 @@ window#waybar {
     border-bottom-color: @battery-color;
 }
 
-#battery.charging, #battery.plugged {
+#battery.charging,
+#battery.plugged {
     color: @battery-charging-color;
     border-bottom-color: @battery-charging-color;
 }
@@ -254,6 +271,16 @@ window#waybar {
     border-bottom-color: @backlight-color;
 }
 
+#bluetooth {
+    color: @bluetooth-color;
+    border-bottom-color: @bluetooth-color;
+}
+
+#bluetooth.disabled {
+    color: @red;
+    border-bottom-color: @red;
+}
+
 #disk {
     color: @disk-color;
     border-bottom-color: @disk-color;
@@ -290,11 +317,11 @@ window#waybar {
     margin: 0 2px;
 }
 
-#tray > .passive {
+#tray>.passive {
     -gtk-icon-effect: dim;
 }
 
-#tray > .needs-attention {
+#tray>.needs-attention {
     -gtk-icon-effect: highlight;
     color: @red;
     border-bottom-color: @red;

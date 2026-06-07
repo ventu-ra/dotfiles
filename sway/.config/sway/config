@@ -198,6 +198,8 @@ exec swaymsg "workspace 3; exec kitty"
 
 for_window [app_id="yad"] floating enable
 for_window [app_id="org.pulseaudio.pavucontrol"] floating enable, move position center, resize set 600 400
+for_window [app_id="blueman-manager"] floating enable, move position center, resize set 600 400
+for_window [class="Blueman-manager"] floating enable, move position center, resize set 600 400
 
 
 ### Key bindings

@@ -18,6 +18,7 @@
     "modules-right": [
         "tray",
         "pulseaudio",
+        "bluetooth",
         "network",
         "backlight",
         "battery",
@@ -89,8 +90,18 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
-    }
+        "on-click": "pavucontrol"    },
+    "bluetooth": {
+        "format": "󰂯 {num_connections}",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂯 {num_connections}",
+        "format-connected-battery": "󰂯 {num_connections} {device_battery_percentage}%",
+        "tooltip-format": "{controller_alias}",
+        "tooltip-format-connected": "{controller_alias}\n{num_connections} conectado(s)",
+        "on-click": "blueman-manager",
+        "on-click-right": "bluetoothctl power off",
+        "on-scroll-up": "bluetoothctl power on",
+        "on-scroll-down": "bluetoothctl power off"    }
  }
 
 }
