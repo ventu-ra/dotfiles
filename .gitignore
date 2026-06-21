@@ -6,3 +6,11 @@ debug
 foo.*
 *.log
 data
+
+# Ambientes locais e dados sensíveis
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
