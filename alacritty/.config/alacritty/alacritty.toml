@@ -1,6 +1,13 @@
+[general]
+import = ["~/.config/alacritty/themes/noctalia.toml"]
 
 [env]
 TERM = "xterm-256color"
+
+[terminal.shell]
+program = "/usr/bin/tmux" # ou o caminho correto retornado por 'which tmux'
+args = ["new-session", "-A", "-s", "main"] # Cria ou anexa à sessão 'main'
+
 
 [terminal]
 osc52 = "CopyPaste"
@@ -9,7 +16,7 @@ osc52 = "CopyPaste"
 normal = { family = "CaskaydiaMono Nerd Font", style = "Regular" }
 bold = { family = "CaskaydiaMono Nerd Font", style = "Bold" }
 italic = { family = "CaskaydiaMono Nerd Font", style = "Italic" }
-size = 18
+size = 16
 
 [window]
 #padding.x = 14
