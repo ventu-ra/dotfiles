@@ -52,9 +52,3 @@ map ctrl+left  neighboring_window left
 map ctrl+right neighboring_window right
 map ctrl+up    neighboring_window up
 map ctrl+down  neighboring_window down
-
-
-# BEGIN_KITTY_THEME
-# Noctalia
-include current-theme.conf
-# END_KITTY_THEME
