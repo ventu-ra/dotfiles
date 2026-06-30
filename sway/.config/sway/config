@@ -457,3 +457,5 @@ input "type:keyboard" {
 }
 output * scale_filter linear
 
+
+include ~/.config/sway/noctalia

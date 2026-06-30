@@ -5,8 +5,8 @@
     "spacing": 1,
     "margin": 0,
     "modules-left": [
-        "sway/workspaces",
-        "sway/mode"
+        "hyprland/workspaces",
+        "hyprland/mode"
         // "custom/weather",
         // "custom/quote"
     ],
@@ -26,7 +26,7 @@
         "custom/updates",
         "tray"
     ],
-    "sway/workspaces": {
+    "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "format": "{name}",
@@ -50,7 +50,7 @@
             "5": []
         }
     },
-    "sway/mode": {
+    "hyprland/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
     "custom/playerctl": {
