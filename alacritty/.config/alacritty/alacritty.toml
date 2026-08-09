@@ -6,7 +6,7 @@ TERM = "xterm-256color"
 
 [terminal.shell]
 program = "/usr/bin/tmux" # ou o caminho correto retornado por 'which tmux'
-args = ["new-session", "-A", "-s", "main"] # Cria ou anexa à sessão 'main'
+#args = ["new-session", "-A", "-s", "main"] # Cria ou anexa à sessão 'main'
 
 
 [terminal]
