@@ -1,4 +1,4 @@
-# https://github.com/arkboix
+ # https://github.com/arkboix
 # Sway WM Configuration File
 # AUTHOR: Arkboi X
 # CREDIT: https://github.com/arkboix
@@ -18,12 +18,17 @@ set $right l
 set $term kitty
 
 # Your preferred application launcher
-set $menu rofi -show drun
+exec noctalia
+
+set $ipc noctalia msg
+
+set $menu exec $ipc panel-toggle launcher
 
 # File Manager
-set $file-manager nemo
 
+set $file-manager thunar
 
+bindsym $mod+Shift+d exec kitty distrobox enter dev
 
 # For settings firefox as your browser, you could replace the browser line with this:
 # set $web-browser firefox
@@ -59,6 +64,7 @@ set $lock 'swaylock \
 # Set XDG_CURRENT_DESKTOP for proper Wayland support
 exec --no-startup-id dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # Start xdg-desktop-portal services (ensure wlr starts first)
 exec --no-startup-id /usr/lib/xdg-desktop-portal-wlr &
@@ -158,10 +164,10 @@ font pango:Iosevka Nerd Font Mono 12
 exec autotiling -l 2
 
 ## Flameshot
-exec flameshot
+#exec flameshot
 
 ## Emacs Daemon
-exec /usr/bin/emacs --daemon
+#exec /usr/bin/emacs --daemon
 
 ## Clipboard
 exec wl-paste --type text --watch cliphist store &
@@ -171,27 +177,27 @@ exec wl-paste --type image --watch cliphist store &
 exec nm-applet
 
 ## Waybar
-exec waybar
+#exec waybar
 
 ## SWWW Wallpaper Daemon
-exec swww-daemon
+#exec swww-daemon
 
 ## SWWW Random Wallpaper
-exec bash -c 'swww img "$(find ~/wallpapers-extra/flowers -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.webp" \) | shuf -n1)" -t none'
+#exec bash -c 'swww img "$(find ~/wallpapers-extra/flowers -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.webp" \) | shuf -n1)" -t none'
 
 
 ## Mako Notification
-exec mako
+#exec mako
 
 ## NWG Wrapper keybinds
-exec nwg-wrapper -t sway.pango -p right -mr 10
-exec nwg-wrapper -s quick.sh -a end -p left -ml 10 -mb 10 -r 60
-exec nwg-wrapper -s quote.sh -p left -a end -mb 10 -ml 260
+#exec nwg-wrapper -t sway.pango -p right -mr 10
+#exec nwg-wrapper -s quick.sh -a end -p left -ml 10 -mb 10 -r 60
+#exec nwg-wrapper -s quote.sh -p left -a end -mb 10 -ml 260
 
 ## Autostart Applications
 
-exec swaymsg "workspace 1; exec floorp"
-exec swaymsg "workspace 3; exec kitty"
+#exec swaymsg "workspace 1; exec floorp"
+#exec swaymsg "workspace 3; exec kitty"
 
 
 ### Window Rules
@@ -210,7 +216,7 @@ for_window [class="Blueman-manager"] floating enable, move position center, resi
     bindsym $mod+Return exec $term
 
     # Start Emacs
-    bindsym $mod+e exec emacsclient -c
+    #bindsym $mod+e exec emacsclient -c
 
     # Sticky Mode
     bindsym $mod+a exec sticky enable
@@ -219,8 +225,9 @@ for_window [class="Blueman-manager"] floating enable, move position center, resi
     bindsym $mod+v exec cliphist list | rofi -dmenu -p "Clipboard" -theme ~/.config/rofi/clipboard.rasi | cliphist decode | wl-copy
 
     # Emoji Picker
-    bindsym $mod+s exec rofi -show emoji -modi emoji -matching regex -sorting-method levenshtein
+    # bindsym $mod+s exec rofi -show emoji -modi emoji -matching regex -sorting-method levenshtein
 
+    bindsym $mod+s exec $ipc panel-toggle control-center
 
     # Lock
     bindsym $mod+shift+t exec $lock
@@ -232,7 +239,7 @@ for_window [class="Blueman-manager"] floating enable, move position center, resi
     bindsym $mod+g exec ~/.config/sway/scripts/prompt-record.sh
 
     # File Manager
-    bindsym $mod+y exec $file-manager
+    bindsym $mod+e exec $file-manager
 
 # Reload Waybar
     bindsym $mod+shift+a exec pkill -SIGUSR2 waybar
@@ -342,7 +349,7 @@ bindsym --release $mod+0 exec "echo 0 > /tmp/sovpipe"
 
 
     # Manual Tiling Modes
-       bindsym $mod+p splith
+    bindsym $mod+p splith
     bindsym $mod+o splitv
 
 
@@ -455,6 +462,11 @@ input "type:keyboard" {
     xkb_layout "br"
     xkb_options "caps:escape"
 }
+
+input type:touchpad {
+	tap enabled
+}
+
 output * scale_filter linear
 
 
