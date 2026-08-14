@@ -71,28 +71,7 @@ exec rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov -t 
 
 ### Colorscheme
 
-# Everforest colors
-#set $bg0  #2d353b
-#set $bg1  #343f44
-#set $fg   #d3c6aa
-#set $green #a7c080
-#set $blue  #7fbbb3
-#set $yellow #dbbc7f
-#set $gray  #868d80
 
-# Pastel TTY Colors
-#set $bg0    #282828
-#set $bg1    #323232
-#set $fg     #e0e0e0
-#set $green  #b5e8a9
-#set $blue   #a5d8ff
-#set $yellow #ffe6a7
-#set $gray   #a0a0a0
-#set $red    #ff9a9e
-#set $magenta #dda0dd
-#set $cyan   #a3e8e8
-#set $white  #ffffff
-#set $orange #ffbb8a
 
 set $bg0    #282828
 set $bg1    #3c3836
@@ -112,7 +91,15 @@ set $orange #fe8019
 ### Output configuration
 #
 #
-output HDMI-A-1 resolution 1920x1080 position 1920,0
+#output HDMI-A-1 resolution 1920x1080 position 1920,0
+
+# Monitor Externo UltraWide (Esquerda - Tela Principal)
+output HDMI-A-1 mode 2560x1080@74.991Hz position 0 0
+
+# Tela do Notebook (Direita - Começa onde o UltraWide termina)
+#output eDP-1 mode 1920x1080@60.020Hz position 2560 0
+
+
 
 ### Font Configuration
 
