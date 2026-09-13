@@ -66,6 +66,24 @@ set $lock 'swaylock \
  --indicator-thickness 10 \
  --font "Iosevka Nerd Font Mono"'
 
+### OBS Fixes and XDG Desktop
+
+# Set XDG_CURRENT_DESKTOP for proper Wayland support
+
+#exec --no-startup-id dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+#exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+# Start xdg-desktop-portal services (ensure wlr starts first)
+
+# exec --no-startup-id /usr/lib/xdg-desktop-portal-wlr &
+
+# exec --no-startup-id /usr/lib/xdg-desktop-portal -r
+
+### Sov
+
+exec rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov -t 500
+
 ### Colorscheme
 
 set $bg0 #282828
@@ -87,21 +105,15 @@ set $orange #fe8019
 
 #
 
-# ==============================
+#output HDMI-A-1 resolution 1920x1080 position 1920,0
 
-# MONITORES
-
-# ==============================
-
-# LG 34" ultrawide
+# Monitor Externo UltraWide (Esquerda - Tela Principal)
 
 output HDMI-A-1 mode 2560x1080@74.991Hz position 0 0
 
-# Tela interna 15"
+# Tela do Notebook (Direita - Começa onde o UltraWide termina)
 
-output eDP-1 mode 1920x1080@60.020Hz position 2560 0
-
-### Autostart
+#output eDP-1 mode 1920x1080@60.020Hz position 2560 0
 
 ### Font Configuration
 
