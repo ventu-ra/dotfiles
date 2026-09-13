@@ -1,131 +1,72 @@
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
-
 # Home row direction keys, like vim
+
 set $left h
 set $down j
 set $up k
 set $right l
-
-# Your preferred terminal emulator
-set $term foot
-
-# Your preferred application launcher
-exec noctalia
-exec gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
-
 set $ipc noctalia msg
-set $menu exec $ipc panel-toggle launcher
-
 # File Manager
 set $file-manager thunar
 
-bindsym $mod+Shift+d exec kitty distrobox enter dev
-
-# For settings firefox as your browser, you could replace the browser line with this:
-# set $web-browser firefox
-# And same goes for any browser, just replace the command with whatever command is used to launch your browser.
-# Brave browser users need to set command as brave-bin
-# Your preferred Browser
-set $web-browser flatpak run com.brave.Browser
-
-# lock screen
-set $lock 'swaylock \
-    --color 2d353b \
-    --inside-color 3a454a \
-    --inside-clear-color 5c6a72 \
-    --inside-ver-color 5a524c \
-    --inside-wrong-color 543a3a \
-    --ring-color 7a8478 \
-    --ring-clear-color a7c080 \
-    --ring-ver-color dbbc7f \
-    --ring-wrong-color e67e80 \
-    --key-hl-color d699b6 \
-    --bs-hl-color e69875 \
-    --separator-color 2d353b \
-    --text-color d3c6aa \
-    --text-clear-color d3c6aa \
-    --text-ver-color d3c6aa \
-    --text-wrong-color d3c6aa \
-    --indicator-radius 100 \
-    --indicator-thickness 10 \
-    --font "Iosevka Nerd Font Mono"'
-
-### OBS Fixes and XDG Desktop
-
-# Set XDG_CURRENT_DESKTOP for proper Wayland support
-exec --no-startup-id dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-
-#exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-
-# Start xdg-desktop-portal services (ensure wlr starts first)
-# exec --no-startup-id /usr/lib/xdg-desktop-portal-wlr &
-# exec --no-startup-id /usr/lib/xdg-desktop-portal -r
-
-
-
-### Sov
-
-exec rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov -t 500
-
-### Colorscheme
-
-
-
-set $bg0    #282828
-set $bg1    #3c3836
-set $fg     #ebdbb2
-set $green  #b8bb26
-set $blue   #83a598
-set $yellow #fabd2f
-set $gray   #928374
-set $red    #fb4934
-set $magenta #d3869b
-set $cyan   #8ec07c
-set $white  #ebdbb2
-set $orange #fe8019
-
-
+# Your preferred terminal emulator
+set $term foot
+# Your preferred application launcher
+exec noctalia
+set $menu exec $ipc panel-toggle launcher
+exec gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
 
 ### Output configuration
 #
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
-#output HDMI-A-1 resolution 1920x1080 position 1920,0
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
 
-# Monitor Externo UltraWide (Esquerda - Tela Principal)
-output HDMI-A-1 mode 2560x1080@74.991Hz position 0 0
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
 
-# Tela do Notebook (Direita - Começa onde o UltraWide termina)
-#output eDP-1 mode 1920x1080@60.020Hz position 2560 0
-
-
-
-### Font Configuration
-
-font pango:Iosevka Nerd Font Mono 12
-
-### Autostart
-
-
-## Sway Automatic Tiling
-exec autotiling -l 2
-
-## Clipboard
-exec wl-paste --type text --watch cliphist store &
-exec wl-paste --type image --watch cliphist store &
-
-# NetworkManager
-exec nm-applet
-
-## Window Rules
-
-for_window [app_id="yad"] floating enable
-for_window [app_id="org.pulseaudio.pavucontrol"] floating enable, move position center, resize set 600 400
-for_window [app_id="blueman-manager"] floating enable, move position center, resize set 600 400
-for_window [class="Blueman-manager"] floating enable, move position center, resize set 600 400
-
+### Input configuration
+#
+# Example configuration:
+#
+   input type:touchpad {
+       dwt enabled
+       tap enabled
+       natural_scroll enabled
+       middle_emulation enabled
+   }
+#
+   input type:keyboard {
+       xkb_layout "br"
+       xkb_options "caps:escape"
+   }
+#
+# You can also configure each device individually.
+# Read `man 5 sway-input` for more information about this section.
 
 ### Key bindings
 #
@@ -134,45 +75,25 @@ for_window [class="Blueman-manager"] floating enable, move position center, resi
     # Start a terminal
     bindsym $mod+Return exec $term
 
-    # Sticky Mode
-    bindsym $mod+a exec sticky enable
+    # Kill focused window
+    bindsym $mod+Shift+q kill
 
-    # Clipboard
-    bindsym $mod+v exec cliphist list | rofi -dmenu -p "Clipboard" -theme ~/.config/rofi/clipboard.rasi | cliphist decode | wl-copy
-
-    # Emoji Picker
-    # bindsym $mod+s exec rofi -show emoji -modi emoji -matching regex -sorting-method levenshtein
-
-    bindsym $mod+s exec $ipc panel-toggle control-center
-
-    # Lock
-    bindsym $mod+shift+t exec $lock
-
-    # File Manager
-    bindsym $mod+e exec $file-manager
-
-# Call the browser variable and launch it with $mod+b
-    bindsym $mod+b exec $web-browser
-
-# Kill focused window
-    bindsym $mod+w kill
-# Start your launcher
+    # Start your launcher
     bindsym $mod+d exec $menu
 
-# Drag floating windows by holding down $mod and left mouse button.
+    bindsym $mod+Shift+d exec kitty distrobox enter dev
+
+    # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
     # Change normal to inverse to use left mouse button for resizing and right
     # mouse button for dragging.
-    # Resize windows with left mouse button while holding $mod
     floating_modifier $mod normal
-    bindsym $mod+button1 resize
 
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
 
-# Reload the configuration file
-     bindsym $mod+Shift+c reload
-
-# Exit sway (logs you out of your Wayland session)
+    # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
@@ -201,28 +122,17 @@ for_window [class="Blueman-manager"] floating enable, move position center, resi
 #
 # Workspaces:
 #
-    bindsym --no-repeat $mod+1 workspace number 1; exec "echo 1 > /tmp/sovpipe"
-    bindsym --no-repeat $mod+2 workspace number 2; exec "echo 1 > /tmp/sovpipe"
-    bindsym --no-repeat $mod+3 workspace number 3; exec "echo 1 > /tmp/sovpipe"
-    bindsym --no-repeat $mod+4 workspace number 4; exec "echo 1 > /tmp/sovpipe"
-    bindsym --no-repeat $mod+5 workspace number 5; exec "echo 1 > /tmp/sovpipe"
-    bindsym --no-repeat $mod+6 workspace number 6; exec "echo 1 > /tmp/sovpipe"
-    bindsym --no-repeat $mod+7 workspace number 7; exec "echo 1 > /tmp/sovpipe"
-    bindsym --no-repeat $mod+8 workspace number 8; exec "echo 1 > /tmp/sovpipe"
-    bindsym --no-repeat $mod+9 workspace number 9; exec "echo 1 > /tmp/sovpipe"
-    bindsym --no-repeat $mod+0 workspace number 10; exec "echo 1 > /tmp/sovpipe"
-
-    bindsym --release $mod+1 exec "echo 0 > /tmp/sovpipe"
-    bindsym --release $mod+2 exec "echo 0 > /tmp/sovpipe"
-    bindsym --release $mod+3 exec "echo 0 > /tmp/sovpipe"
-    bindsym --release $mod+4 exec "echo 0 > /tmp/sovpipe"
-    bindsym --release $mod+5 exec "echo 0 > /tmp/sovpipe"
-    bindsym --release $mod+6 exec "echo 0 > /tmp/sovpipe"
-    bindsym --release $mod+7 exec "echo 0 > /tmp/sovpipe"
-    bindsym --release $mod+8 exec "echo 0 > /tmp/sovpipe"
-    bindsym --release $mod+9 exec "echo 0 > /tmp/sovpipe"
-    bindsym --release $mod+0 exec "echo 0 > /tmp/sovpipe"
-
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2
@@ -234,23 +144,24 @@ for_window [class="Blueman-manager"] floating enable, move position center, resi
     bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
-
-
-# Note: workspaces can have any name you want, not just numbers.
+    # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 #
 # Layout stuff:
 #
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+shift+s layout stacking
-    bindsym $mod+t floating toggle
-
-
-    # Manual Tiling Modes
-    bindsym $mod+p splith
-    bindsym $mod+o splitv
-
+    bindsym $mod+s exec $ipc panel-toggle control-center
+    #bindsym $mod+s layout stacking
+    # bindsym $mod+w layout tabbed
+    # File Manager
+    bindsym $mod+e exec $file-manager
+    #bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
@@ -261,6 +172,8 @@ for_window [class="Blueman-manager"] floating enable, move position center, resi
     # Swap focus between the tiling area and the floating area
     bindsym $mod+space focus mode_toggle
 
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
 #
 # Scratchpad:
 #
@@ -296,7 +209,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
+  bindsym $mod+r mode "resize"
 #
 # Utilities:
 #
@@ -305,37 +218,38 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
     bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
     bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+
+    # Special keys to control media via playerctl
+    bindsym --locked XF86AudioPlay exec playerctl play-pause
+    bindsym --locked XF86AudioPause exec playerctl play-pause
+    bindsym --locked XF86AudioPrev exec playerctl previous
+    bindsym --locked XF86AudioNext exec playerctl next
+    bindsym --locked XF86AudioStop exec playerctl stop
+
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+
     # Special key to take a screenshot with grim
-    bindsym Print exec flameshot gui
+    bindsym Print exec grim
+
+
+## Sway Automatic Tiling
+
+include ~/.config/sway/noctalia
+
 
 # Borders and Gaps.
 
-gaps inner 4
-gaps outer 4
+gaps inner 8
+gaps outer 8
 
 default_border pixel 2
 
 titlebar_padding 8 2
 titlebar_border_thickness 2
 
-input "type:keyboard" {
-    xkb_layout "br"
-    xkb_options "caps:escape"
-}
-input type:touchpad {
-       dwt enabled
-       tap enabled
-       natural_scroll enabled
-       middle_emulation enabled
-   }
-
-input type:touchpad {
-	tap enabled
-}
-
 output * scale_filter linear
 
-include ~/.config/sway/noctalia
+
+
